@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">XtremeMovie</string>
+    <string name="item_movie">Movies</string>
+    <string name="item_favorite">Favorites</string>
+    <string name="item_upcoming">Upcoming</string>
+    <string name="item_top_rated">Top rated</string>
+    <string name="item_popular">Popular</string>
+
+</resources>
