@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MovieDemo</string>
+    <string name="hint_movie">Enter movie title</string>
+    <string name="bt_search">Search</string>
+    <string name="review">Review</string>
+    <string name="bt_save">save</string>
+</resources>
