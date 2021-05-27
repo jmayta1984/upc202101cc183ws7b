@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/constants/api_path.dart';
+import 'package:movie_app/utils/http_helper.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieList extends StatefulWidget {
   @override
@@ -6,18 +9,32 @@ class MovieList extends StatefulWidget {
 }
 
 class _MovieListState extends State<MovieList> {
-  final List movies = [
-    'Scarymovie',
-    'Inception',
-    'Taxi driver',
-    'Asu mare',
-  ];
+  late List movies;
+  late HttpHelper httpHelper;
+
+  @override
+  void initState() {
+    movies = [];
+    httpHelper = HttpHelper();
+    initialize();
+    super.initState();
+  }
+
+  Future initialize() async {
+    httpHelper.popularMovies().then((value) {
+      setState(() {
+        movies = value ?? [];
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Movies'),
+        
       ),
       body: ListView.builder(
           itemCount: movies.length,
@@ -27,14 +44,24 @@ class _MovieListState extends State<MovieList> {
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network(
-                      'https://image.tmdb.org/t/p/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
-                      width: 64,
+                    Expanded(
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: urlImage + movies[index].poster,
+                        imageErrorBuilder: (context, url, error) =>
+                            Icon(Icons.error),
+                      ),
                     ),
                   ],
                 ),
-                title: Text(movies[index]),
-                subtitle: Text(movies[index]),
+                title: Text(
+                  movies[index].title,
+                  maxLines: 1,
+                ),
+                subtitle: Text(
+                  movies[index].overview,
+                  maxLines: 1,
+                ),
               ),
             );
           }),

@@ -11,7 +11,7 @@ class Movie {
     required this.poster,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> map) {
+  factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
       id: map['id'],
       title: map['original_title'],
